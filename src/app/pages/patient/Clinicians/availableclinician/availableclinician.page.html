@@ -1,0 +1,59 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>availableclinician</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div *ngIf="!clinicianList">
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>
+          <ion-skeleton-text class="skeleton-image" animated></ion-skeleton-text>
+        </ion-card-title>
+        <ion-skeleton-text animated></ion-skeleton-text>
+        <ion-skeleton-text animated></ion-skeleton-text>
+      </ion-card-header>
+    </ion-card>
+
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>
+          <ion-skeleton-text class="skeleton-image" animated></ion-skeleton-text>
+        </ion-card-title>
+        <ion-skeleton-text animated></ion-skeleton-text>
+        <ion-skeleton-text animated></ion-skeleton-text>
+      </ion-card-header>
+    </ion-card>
+
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>
+          <ion-skeleton-text class="skeleton-image" animated></ion-skeleton-text>
+        </ion-card-title>
+        <ion-skeleton-text animated></ion-skeleton-text>
+        <ion-skeleton-text animated></ion-skeleton-text>
+      </ion-card-header>
+    </ion-card>
+  </div>
+
+  <div class="card-container">
+    <!-- First Row of Cards -->
+    <div class="card" *ngFor="let clinician of(clinicianList | async); let i = index">
+      <ion-card [routerLink]="['clinician', clinician.id]" button>
+        <!-- Male -->
+        <div *ngIf="clinician.sex === 'M'">
+          <ion-img src="../../../../assets/images/clinician.png"></ion-img>
+        </div>
+        <!-- female -->
+        <div *ngIf="clinician.sex === 'F'">
+          <ion-img src="../../../../assets/images/nurse.png"></ion-img>
+        </div>
+        <ion-card-header>
+          <ion-card-title>{{ clinician.name }}</ion-card-title>
+        </ion-card-header>
+      </ion-card>
+    </div>
+
+  </div>
+</ion-content>

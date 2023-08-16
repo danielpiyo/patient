@@ -1,0 +1,98 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/patient/home"></ion-back-button>
+    </ion-buttons>
+    <ion-title></ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-img [src]="(serviceDetail | async)?.image_url"></ion-img>
+  <ion-card class="ion-no-margin">
+    <ion-card-header>
+      <ion-card-title> {{ (serviceDetail | async)?.detailed_name }}</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      {{ (serviceDetail | async)?.description ?? 'No description available'}}
+    </ion-card-content>
+  </ion-card>
+  <ion-card>
+    <!-- Home visit, medical emergiencies, Medical conciege -->
+    <div *ngIf="(serviceDetail | async)?.tag === 'mhv' || (serviceDetail | async)?.tag === 'mcc'">
+      <ion-list lines="none">
+        <ion-item>
+          <ion-label>
+            <ion-icon name="medkit"></ion-icon>
+            Nurse Available
+          </ion-label>
+          <ion-chip color="danger"> {{ (serviceDetail | async)?.nurse_count}}</ion-chip>
+          <ion-button color="success" [routerLink]="['nurses']">Reach Out
+            <!-- <ion-icon name="arrow-round-forward"></ion-icon> -->
+          </ion-button>
+        </ion-item>
+
+        <ion-item>
+          <ion-label>
+            <ion-icon name="thermometer"></ion-icon>
+            Clinical Officers Available
+          </ion-label>
+          <ion-chip color="danger">{{ (serviceDetail | async)?.clinician_count}}</ion-chip>
+          <ion-button color="success" [routerLink]="['clinicians']">Reach Out
+          </ion-button>
+        </ion-item>
+
+      </ion-list>
+    </div>
+    <!-- Medical -->
+    <!-- Consultation nurse not allowed -->
+    <div *ngIf="(serviceDetail | async)?.tag === 'mc'">
+      <ion-list lines="none">
+        <ion-item>
+          <ion-label>
+            <ion-icon name="thermometer"></ion-icon>
+            Clinical Officers Available
+          </ion-label>
+          <ion-chip color="danger">{{ (serviceDetail | async)?.clinician_count}}</ion-chip>
+          <ion-button color="success">Reach Out
+          </ion-button>
+        </ion-item>
+
+      </ion-list>
+    </div>
+
+    <!-- Request ambulance & emergiency services -->
+    <div *ngIf="(serviceDetail | async)?.tag === 'mea'">
+      <ion-list lines="none">
+        <ion-item>
+          <ion-label>
+            <ion-icon name="medkit"></ion-icon>
+            Ambulences available on standby
+          </ion-label>
+          <ion-chip color="danger"> {{ (serviceDetail | async)?.nurse_count}}</ion-chip>
+        </ion-item>
+
+        <ion-button color="success" class="ion-text-center"> Request Service
+          <ion-icon name="arrow-forward"></ion-icon>
+        </ion-button>
+
+      </ion-list>
+    </div>
+
+  </ion-card>
+  <ion-fab vertical="top" horizontal="end" slot="fixed">
+    <ion-fab-button color="primary">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+
+    <ion-fab-list side="bottom">
+      <ion-fab-button (click)="openModal()">
+        <ion-icon color="primary" name="play"></ion-icon>
+      </ion-fab-button>
+
+      <ion-fab-button (click)="share()">
+        <ion-icon color="dark" name="share"></ion-icon>
+      </ion-fab-button>
+    </ion-fab-list>
+  </ion-fab>
+</ion-content>
