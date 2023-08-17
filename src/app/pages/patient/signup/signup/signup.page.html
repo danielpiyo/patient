@@ -12,43 +12,27 @@
   <ion-card class="ion-no-margin hm-01">
     <ion-card-header>
       <ion-card-title>
-        <h1 class="welcome-heading">SIGN IN</h1>
+        <h1 class="welcome-heading">SIGN UP HERE</h1>
       </ion-card-title>
     </ion-card-header>
 
 
     <div class="card-container">
-      <form [formGroup]="loginForm" (ngSubmit)="login()">
+      <form [formGroup]="signUpForm" (ngSubmit)="signUp()">
         <ion-list>
           <ion-item>
             <ion-input formControlName="email" label="Email" type="email"></ion-input>
           </ion-item>
-          <br> <br>
-          <ion-item>
-            <ion-input formControlName="password" label="Pasword" type="password"></ion-input>
-          </ion-item>
         </ion-list>
         <br>
 
-
-        <ion-row>
-          <ion-col size="6">
-            <ion-checkbox formControlName="remember" labelPlacement="end" class="remeber-me">Remember Me</ion-checkbox>
-          </ion-col>
-          <ion-col size="6">
-            <ion-label>
-              <a href="#">Forgot Password?</a>
-            </ion-label>
-          </ion-col>
-        </ion-row>
-
         <br>
 
-        <ion-button shape="round" color="success" type="submit" [disabled]="loginForm.invalid"
-          class="login-button">SUBMIT</ion-button>
+        <ion-button shape="round" color="success" type="submit" [disabled]="signUpForm.invalid"
+          class="login-button">NEXT</ion-button>
       </form>
       <br>
-      <div class="signup-cls"><ion-label>Dont have account? <a href="#">Sign Up</a></ion-label></div>
+      <div class="signin-cls"><ion-label>Already Member? <a routerLink="/login">Sign In</a></ion-label></div>
 
     </div>
   </ion-card>
