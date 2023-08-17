@@ -1,7 +1,7 @@
 import { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'com.mclinic.app',
+  appId: 'io.ionic.starter',
   appName: 'mclinic',
   webDir: 'www',
   server: {
