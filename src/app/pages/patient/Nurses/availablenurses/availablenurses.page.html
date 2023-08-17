@@ -1,63 +1,81 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/patient/home/service"></ion-back-button>
+    </ion-buttons>
     <ion-title></ion-title>
   </ion-toolbar>
-  <ion-back-button defaultHref="/patient/home/service"></ion-back-button>
 </ion-header>
 
 <ion-content [fullscreen]="true">
+  <div class="header-bck">
 
-  <div *ngIf="!nursesLists">
-    <ion-card>
-      <ion-card-header>
-        <ion-card-title>
-          <ion-skeleton-text class="skeleton-image" animated></ion-skeleton-text>
-        </ion-card-title>
-        <ion-skeleton-text animated></ion-skeleton-text>
-        <ion-skeleton-text animated></ion-skeleton-text>
-      </ion-card-header>
+    <hr>
+  </div> <br>
+  <div>
+
+    <ion-card class="ion-no-margin">
+      <ion-card-content>
+        <ion-row>
+          <ion-col size="8">
+            <ion-searchbar show-clear-button="always" value="Search ..." class="custom"></ion-searchbar>
+          </ion-col>
+          <ion-col size="4">
+
+            <ion-select label="Select category" label-placement="fixed">
+              <ion-select-option value="apple">Apple</ion-select-option>
+              <ion-select-option value="banana">Banana</ion-select-option>
+              <ion-select-option value="orange">Orange</ion-select-option>
+            </ion-select>
+          </ion-col>
+        </ion-row>
+      </ion-card-content>
     </ion-card>
-
-    <ion-card>
-      <ion-card-header>
-        <ion-card-title>
-          <ion-skeleton-text class="skeleton-image" animated></ion-skeleton-text>
-        </ion-card-title>
-        <ion-skeleton-text animated></ion-skeleton-text>
-        <ion-skeleton-text animated></ion-skeleton-text>
-      </ion-card-header>
-    </ion-card>
-
-    <ion-card>
-      <ion-card-header>
-        <ion-card-title>
-          <ion-skeleton-text class="skeleton-image" animated></ion-skeleton-text>
-        </ion-card-title>
-        <ion-skeleton-text animated></ion-skeleton-text>
-        <ion-skeleton-text animated></ion-skeleton-text>
-      </ion-card-header>
-    </ion-card>
-  </div>
-
-
-  <div class="card-container">
-    <!-- First Row of Cards -->
-    <div class="card" *ngFor="let nurse of(nursesLists | async); let i = index">
-      <ion-card [routerLink]="['nurse', nurse.id]" button class="ion-no-margin">
-        <!-- Male -->
-        <div *ngIf="nurse.sex === 'M'">
-          <ion-img src="../../../../assets/images/clinician.png"></ion-img>
-        </div>
-        <!-- female -->
-        <div *ngIf="nurse.sex === 'F'">
-          <ion-img src="../../../../assets/images/nurse.png"></ion-img>
-        </div>
-        <ion-card-header>
-          <ion-card-title>{{ nurse.name }}</ion-card-title>
-        </ion-card-header>
-      </ion-card>
+    <div class="specialist-cat">
+      <h3>AVAILABLE NURSES</h3>
     </div>
+    <ion-card class="ion-no-margin hm-01">
+      <div *ngFor="let nurse of(nursesLists | async); let i = index">
+        <ion-card [routerLink]="['nurse', nurse.id]" button>
+          <ion-card-content>
+            <ion-row>
+              <ion-col size="4">
+                <!-- First Column with Image -->
+                <!-- Male -->
+                <div *ngIf="nurse.sex === 'M'">
+                  <ion-avatar>
+                    <ion-img src="../../../../assets/images/clinician.png"></ion-img>
+                  </ion-avatar>
 
+                </div>
+                <!-- female -->
+                <div *ngIf="nurse.sex !== 'M'">
+                  <ion-avatar>
+                    <ion-img src="../../../../assets/images/nurse.png"></ion-img>
+                  </ion-avatar>
+                </div>
+              </ion-col>
+              <ion-col size="4">
+                <!-- Second Column with Chip -->
+                <p>Dr.{{ nurse.name }}</p>
+                <h5>{{ nurse.speciality }}</h5>
+                <ion-chip color="success">
+                  <ion-icon name="alarm" color="danger"></ion-icon>
+                  <ion-label>11 am</ion-label>
+                </ion-chip>
+              </ion-col>
+              <ion-col size="4">
+                <!-- Third Column with Button -->
+                <ion-button shape="round" fill="outline" color="danger">
+                  <ion-icon slot="start" name="alarm"></ion-icon>
+                  Book</ion-button>
+              </ion-col>
+            </ion-row>
+          </ion-card-content>
+        </ion-card>
+      </div>
+
+    </ion-card>
   </div>
 
 </ion-content>

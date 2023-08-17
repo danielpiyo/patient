@@ -12,6 +12,8 @@ import { Nurse } from '../../shared-resources/types/type';
 export class AvailablenursesPage implements OnInit {
   nursesLists!: Observable<Nurse[]>;
 
+  presenation: string = 'nurses-general';
+
   constructor(
     private _nurseService: NurseService,
     private _activatedRoute: ActivatedRoute
@@ -21,5 +23,17 @@ export class AvailablenursesPage implements OnInit {
     console.log(serviceId);
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    setTimeout(() => {
+      this.nursesLists = this._nurseService.getAllNurses();
+    }, 4000);
+  }
+
+  sectionGeneral() {
+    this.presenation = 'nurses-general';
+  }
+
+  sectionSpecialist() {
+    this.presenation = 'nurses-specialist';
+  }
 }

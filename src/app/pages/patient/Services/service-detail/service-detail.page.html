@@ -54,7 +54,7 @@
             Clinical Officers Available
           </ion-label>
           <ion-chip color="danger">{{ (serviceDetail | async)?.clinician_count}}</ion-chip>
-          <ion-button color="success">Reach Out
+          <ion-button color="success" [routerLink]="['clinicians']">Reach Out
           </ion-button>
         </ion-item>
 

@@ -89,9 +89,20 @@ const routes: Routes = [
       },
     ],
   },
+
+  {
+    path: 'signup',
+    loadChildren: () =>
+      import('../signup/signup/signup.module').then((m) => m.SignupPageModule),
+  },
+  {
+    path: 'login',
+    loadChildren: () =>
+      import('../login/login/login.module').then((m) => m.LoginPageModule),
+  },
   {
     path: '',
-    redirectTo: '/patient/home',
+    redirectTo: '/login',
     pathMatch: 'full',
   },
 ];

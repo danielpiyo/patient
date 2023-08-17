@@ -21,4 +21,13 @@ export class AvailableclinicianPage implements OnInit {
   }
 
   ngOnInit() {}
+
+  presenation: string = 'clician-general';
+  sectionGeneral() {
+    this.presenation = 'clician-general';
+  }
+
+  sectionSpecialist() {
+    this.presenation = 'clician-specialist';
+  }
 }
