@@ -1,0 +1,99 @@
+<ion-content [fullscreen]="true">
+  <div class="header-bck">
+    <ion-toolbar>
+      <ion-title></ion-title>
+    </ion-toolbar>
+    <div class="logo-1">
+      <ion-img class="logo-img" src="../../../../assets/icon/logo.png"></ion-img>
+      <p class="slogan">Affordable, Accesible Healthcare</p>
+    </div>
+  </div>
+
+  <ion-card class="ion-no-margin hm-01">
+    <ion-card-header>
+      <ion-card-title>
+        <h1 class="welcome-heading">WELCOME</h1>
+      </ion-card-title>
+    </ion-card-header>
+
+    <div *ngIf="!serviceList">
+      <div class="card-container">
+        <div class="card">
+          <ion-card>
+            <ion-card-header>
+              <ion-card-title>
+                <ion-skeleton-text class="skeleton-image" animated></ion-skeleton-text>
+              </ion-card-title>
+              <ion-skeleton-text animated></ion-skeleton-text>
+              <ion-skeleton-text animated></ion-skeleton-text>
+            </ion-card-header>
+          </ion-card>
+        </div>
+
+        <div class="card">
+          <ion-card>
+            <ion-card-header>
+              <ion-card-title>
+                <ion-skeleton-text class="skeleton-image" animated></ion-skeleton-text>
+              </ion-card-title>
+              <ion-skeleton-text animated></ion-skeleton-text>
+              <ion-skeleton-text animated></ion-skeleton-text>
+            </ion-card-header>
+          </ion-card>
+        </div>
+
+        <div class="card">
+          <ion-card>
+            <ion-card-header>
+              <ion-card-title>
+                <ion-skeleton-text class="skeleton-image" animated></ion-skeleton-text>
+              </ion-card-title>
+              <ion-skeleton-text animated></ion-skeleton-text>
+              <ion-skeleton-text animated></ion-skeleton-text>
+            </ion-card-header>
+          </ion-card>
+        </div>
+
+        <div class="card">
+          <ion-card>
+            <ion-card-header>
+              <ion-card-title>
+                <ion-skeleton-text class="skeleton-image" animated></ion-skeleton-text>
+              </ion-card-title>
+              <ion-skeleton-text animated></ion-skeleton-text>
+              <ion-skeleton-text animated></ion-skeleton-text>
+            </ion-card-header>
+          </ion-card>
+        </div>
+      </div>
+    </div>
+
+    <div class="card-container">
+
+      <!-- First Row of Cards -->
+      <div class="card" *ngFor="let service of(serviceList | async); let i = index">
+        <ion-card [routerLink]="['service', service.id]" button class="ion-no-margin">
+          <ion-img [src]="service.image_url"></ion-img>
+          <ion-card-header>
+            <ion-card-title class="svs-title">
+              <p>{{ service.name }}</p>
+            </ion-card-title>
+          </ion-card-header>
+        </ion-card>
+      </div>
+
+    </div>
+    <!-- Action butons -->
+    <div class="action-buttons">
+      <ion-button color="success">
+        <ion-icon name="arrow-forward"></ion-icon>
+        Sign In
+      </ion-button>
+      <ion-button color="success">
+        Sign Up
+        <ion-icon name="arrow-forward"></ion-icon>
+      </ion-button>
+    </div>
+  </ion-card>
+
+</ion-content>

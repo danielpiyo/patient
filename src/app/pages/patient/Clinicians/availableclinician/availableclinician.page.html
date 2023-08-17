@@ -1,0 +1,152 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/patient/home/service"></ion-back-button>
+    </ion-buttons>
+    <ion-title></ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="header-bck">
+
+    <hr>
+    <ion-segment>
+      <ion-segment-button value="default" (click)="sectionGeneral()">
+        <ion-label>General Officer</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="segment" (click)="sectionSpecialist()">
+        <ion-label>Specialist</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+  </div> <br>
+  <div *ngIf="presenation ==='clician-general'">
+
+    <ion-card class="ion-no-margin">
+      <ion-card-content>
+        <ion-row>
+          <ion-col size="8">
+            <ion-searchbar show-clear-button="always" value="Search ...." class="custom"></ion-searchbar>
+          </ion-col>
+          <ion-col size="4">
+            <ion-select label="Category" label-placement="fixed">
+              <ion-select-option value="apple">Apple</ion-select-option>
+              <ion-select-option value="banana">Banana</ion-select-option>
+              <ion-select-option value="orange">Orange</ion-select-option>
+            </ion-select>
+          </ion-col>
+        </ion-row>
+      </ion-card-content>
+    </ion-card>
+    <div class="specialist-cat">
+      <h3>AVAILABLE NURSES</h3>
+    </div>
+    <ion-card class="ion-no-margin hm-01">
+      <div *ngFor="let clinician of(clinicianList | async); let i = index">
+        <ion-card [routerLink]="['clinician', clinician.id]" button>
+          <ion-card-content>
+            <ion-row>
+              <ion-col size="4">
+                <!-- First Column with Image -->
+                <!-- Male -->
+                <div *ngIf="clinician.sex === 'M'">
+                  <ion-avatar>
+                    <ion-img src="../../../../assets/images/clinician.png"></ion-img>
+                  </ion-avatar>
+
+                </div>
+                <!-- female -->
+                <div *ngIf="clinician.sex !== 'M'">
+                  <ion-avatar>
+                    <ion-img src="../../../../assets/images/nurse.png"></ion-img>
+                  </ion-avatar>
+                </div>
+              </ion-col>
+              <ion-col size="4">
+                <!-- Second Column with Chip -->
+                <p>Dr.{{ clinician.name }}</p>
+                <h5>{{ clinician.speciality }}</h5>
+                <ion-chip color="success">
+                  <ion-icon name="alarm" color="danger"></ion-icon>
+                  <ion-label>11 am</ion-label>
+                </ion-chip>
+              </ion-col>
+              <ion-col size="4">
+                <!-- Third Column with Button -->
+                <ion-button shape="round" fill="outline" color="danger">
+                  <ion-icon slot="start" name="alarm"></ion-icon>
+                  Book</ion-button>
+              </ion-col>
+            </ion-row>
+          </ion-card-content>
+        </ion-card>
+      </div>
+
+    </ion-card>
+  </div>
+
+  <div *ngIf="presenation ==='clician-specialist'">
+
+    <ion-card class="ion-no-margin">
+      <ion-card-content>
+        <ion-row>
+          <ion-col size="8">
+            <ion-searchbar show-clear-button="always" value="Always Show" class="custom"></ion-searchbar>
+          </ion-col>
+          <ion-col size="4">
+            <ion-select label="Category" label-placement="fixed">
+              <ion-select-option value="apple">Apple</ion-select-option>
+              <ion-select-option value="banana">Banana</ion-select-option>
+              <ion-select-option value="orange">Orange</ion-select-option>
+            </ion-select>
+          </ion-col>
+        </ion-row>
+      </ion-card-content>
+    </ion-card>
+    <div class="specialist-cat">
+      <h3>AVAILABLE SPECIALIST</h3>
+    </div>
+    <ion-card class="ion-no-margin hm-01">
+      <div *ngFor="let clinician of(clinicianList | async); let i = index">
+        <ion-card [routerLink]="['clinician', clinician.id]" button>
+          <ion-card-content>
+            <ion-row>
+              <ion-col size="4">
+                <!-- First Column with Image -->
+                <!-- Male -->
+                <div *ngIf="clinician.sex === 'M'">
+                  <ion-avatar>
+                    <ion-img src="../../../../assets/images/clinician.png"></ion-img>
+                  </ion-avatar>
+
+                </div>
+                <!-- female -->
+                <div *ngIf="clinician.sex !== 'M'">
+                  <ion-avatar>
+                    <ion-img src="../../../../assets/images/nurse.png"></ion-img>
+                  </ion-avatar>
+                </div>
+              </ion-col>
+              <ion-col size="4">
+                <!-- Second Column with Chip -->
+                <p>Dr.{{ clinician.name }}</p>
+                <h5>{{ clinician.speciality }}</h5>
+                <ion-chip color="success">
+                  <ion-icon name="alarm" color="danger"></ion-icon>
+                  <ion-label>11 am</ion-label>
+                </ion-chip>
+              </ion-col>
+              <ion-col size="4">
+                <!-- Third Column with Button -->
+                <ion-button shape="round" fill="outline" color="danger">
+                  <ion-icon slot="start" name="alarm"></ion-icon>
+                  Book</ion-button>
+              </ion-col>
+            </ion-row>
+          </ion-card-content>
+        </ion-card>
+      </div>
+
+    </ion-card>
+  </div>
+</ion-content>
