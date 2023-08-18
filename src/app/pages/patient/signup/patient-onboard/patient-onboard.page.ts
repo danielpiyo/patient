@@ -1,7 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { SignupService } from '../../shared-resources/services/signup/signup.service';
 import { Observable } from 'rxjs';
-import { Locations, OnboardPayload } from '../../shared-resources/types/type';
+import {
+  Locations,
+  LoginResponse,
+  OnboardPayload,
+} from '../../shared-resources/types/type';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { LocationsService } from '../../shared-resources/services/locations/locations.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -14,6 +18,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class PatientOnboardPage implements OnInit {
   patientFormGroup!: FormGroup;
   locationsList!: Observable<Locations[]>;
+  responseData!: LoginResponse;
 
   constructor(
     private onboardService: SignupService,
@@ -55,8 +60,19 @@ export class PatientOnboardPage implements OnInit {
         location_id: this.patientFormGroup.get('location_id')!.value,
       };
       console.log(this.patientFormGroup);
-      this.onboardService.onBoard(patientDetails).subscribe((res) => {
-        console.log(res);
+      this.onboardService.onBoard(patientDetails).subscribe((response: any) => {
+        console.log(response);
+
+        this.responseData = response;
+        localStorage.setItem(
+          'currentUser',
+          JSON.stringify(this.responseData.user)
+        );
+        localStorage.setItem(
+          'currentToken',
+          JSON.stringify(this.responseData.token)
+        );
+        // this._router.navigate(['/patient']);
         const returnUrl =
           this.route.snapshot.queryParams['returnUrl'] || '/patient';
         this.router.navigateByUrl(returnUrl);

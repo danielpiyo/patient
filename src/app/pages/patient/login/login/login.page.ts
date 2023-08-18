@@ -13,6 +13,7 @@ import { SignupPage } from '../../signup/signup/signup.page';
   styleUrls: ['./login.page.scss'],
 })
 export class LoginPage implements OnInit {
+  returnUrl!: string; // Store the returnUrl parameter
   loginForm!: FormGroup;
   loading: boolean = false;
   responseData!: LoginResponse;
@@ -88,8 +89,22 @@ export class LoginPage implements OnInit {
     return this.loginForm.controls[controlName].hasError(errorName);
   };
 
+  // closeModal() {
+  //   this.modalController.dismiss();
+  // }
   closeModal() {
-    this.modalController.dismiss();
+    // this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/patient';
+    this.modalController
+      .dismiss()
+      .then(() => {
+        setTimeout(() => {
+          this._router.navigate(['/patient']); // Navigate to the returnUrl after dismissing the modal
+        }, 100); // Adjust the delay as needed
+      })
+      .catch((error) => {
+        // Handle error if the modal cannot be dismissed
+        console.error('Error dismissing modal:', error);
+      });
   }
 
   async openSignUPModal() {
