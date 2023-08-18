@@ -67,3 +67,53 @@ export interface Clinician {
   featured: number;
   status: number;
 }
+
+export interface User {
+  id: number;
+  name: string;
+  email: string;
+  reg_code: string;
+  password: string;
+  mobile: string;
+  address: string;
+  location_id: number;
+  status: number;
+}
+
+export interface UserToken {
+  token: string;
+}
+export interface LoginPayload {
+  email: string;
+  password: string;
+}
+
+export interface LoginResponse {
+  token: string;
+  user: {
+    email: string;
+    name: string;
+    mobile: string;
+    address: string;
+    location_id: number;
+    status: number;
+  };
+}
+
+export interface SignupPayload {
+  email: string;
+}
+
+export interface OnboardPayload {
+  name: string;
+  email: string;
+  password: string;
+  mobile: string;
+  address: string;
+  location_id: number;
+}
+
+export interface Locations {
+  id: number;
+  name: string;
+}

@@ -10,9 +10,10 @@
   </div>
 
   <ion-card class="ion-no-margin hm-01">
+    <br><br>
     <ion-card-header>
       <ion-card-title>
-        <h1 class="welcome-heading">SIGN UP HERE</h1>
+        <h1 class="welcome-heading">SIGN UP</h1>
       </ion-card-title>
     </ion-card-header>
 
@@ -32,9 +33,14 @@
           class="login-button">NEXT</ion-button>
       </form>
       <br>
-      <div class="signin-cls"><ion-label>Already Member? <a routerLink="/login">Sign In</a></ion-label></div>
+      <div class="signin-cls"><ion-label>Already Member? <a (click)="openLoginModal()">Sign In</a></ion-label></div>
 
     </div>
   </ion-card>
 
+  <ion-fab vertical="bottom" horizontal="center" slot="fixed">
+    <ion-fab-button (click)="closeModal()" color="danger">
+      <ion-icon name="close"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 </ion-content>

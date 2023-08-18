@@ -17,8 +17,14 @@ export class ServiceDetailPage implements OnInit {
     private _router: Router,
     private _serviceService: MclinicservicesService
   ) {
-    const serviceId = this._activatedRoute.snapshot.params['serviceId'];
-    this.serviceDetail = this._serviceService.getServiceById(serviceId);
+    // const serviceId = this._activatedRoute.snapshot.params['serviceId'];
+    const serviceId = this._activatedRoute.snapshot.paramMap.get('serviceId');
+    if (serviceId !== null) {
+      this.serviceDetail = this._serviceService.getServiceById(serviceId);
+      // Fetch service details using serviceId and populate the page.
+    } else {
+      // Handle the case where serviceId is null.
+    }
   }
 
   ngOnInit() {}

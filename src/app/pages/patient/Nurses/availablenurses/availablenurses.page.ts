@@ -20,7 +20,6 @@ export class AvailablenursesPage implements OnInit {
   ) {
     const serviceId = this._activatedRoute.snapshot.params['nurseId'];
     this.nursesLists = this._nurseService.getAllNurses();
-    console.log(serviceId);
   }
 
   ngOnInit() {

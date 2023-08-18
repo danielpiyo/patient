@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { User } from '../shared-resources/types/type';
 
 @Component({
   selector: 'app-tabs',
@@ -6,5 +7,10 @@ import { Component } from '@angular/core';
   styleUrls: ['patient.page.scss'],
 })
 export class PatientPage {
-  constructor() {}
+  loggedIn: boolean = false;
+  constructor() {
+    if (localStorage.getItem('currentUser')) {
+      this.loggedIn = true;
+    }
+  }
 }

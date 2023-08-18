@@ -14,7 +14,7 @@ export class MclinicservicesService {
     return this._http.get<Mclservices[]>(environment.baseURL + '/services');
   }
 
-  getServiceById(id: number): Observable<Mclservices> {
+  getServiceById(id: any): Observable<Mclservices> {
     return this._http.get<Mclservices>(environment.baseURL + '/services/' + id);
   }
 }

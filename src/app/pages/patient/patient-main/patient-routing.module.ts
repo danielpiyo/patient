@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { PatientPage } from './patient.page';
+import { AuthGuard } from '../shared-resources/guards/auth/auth.guard';
 
 const routes: Routes = [
   {
@@ -8,7 +9,7 @@ const routes: Routes = [
     component: PatientPage,
     children: [
       {
-        path: 'home',
+        path: '',
         children: [
           {
             path: '',
@@ -19,6 +20,7 @@ const routes: Routes = [
           },
           {
             path: 'service/:serviceId',
+            canActivate: [AuthGuard],
             children: [
               {
                 path: '',
@@ -27,9 +29,9 @@ const routes: Routes = [
                     '../Services/service-detail/service-detail.module'
                   ).then((m) => m.ServiceDetailPageModule),
               },
-
               {
                 path: 'nurses',
+                canActivate: [AuthGuard],
                 children: [
                   {
                     path: '',
@@ -49,6 +51,7 @@ const routes: Routes = [
               },
               {
                 path: 'clinicians',
+                canActivate: [AuthGuard],
                 children: [
                   {
                     path: '',
@@ -72,6 +75,7 @@ const routes: Routes = [
       },
       {
         path: 'reports',
+        canActivate: [AuthGuard],
         loadChildren: () =>
           import('../Report/reports/reports.module').then(
             (m) => m.ReportsPageModule
@@ -79,30 +83,45 @@ const routes: Routes = [
       },
       {
         path: 'profile',
+        canActivate: [AuthGuard],
         loadChildren: () =>
           import('../profile/profile.module').then((m) => m.ProfilePageModule),
       },
       {
         path: '',
-        redirectTo: '/patient/home',
+        redirectTo: '',
         pathMatch: 'full',
       },
     ],
   },
-
   {
     path: 'signup',
-    loadChildren: () =>
-      import('../signup/signup/signup.module').then((m) => m.SignupPageModule),
+    children: [
+      {
+        path: '',
+        loadChildren: () =>
+          import('../signup/signup/signup.module').then(
+            (m) => m.SignupPageModule
+          ),
+      },
+      {
+        path: 'onboard',
+        loadChildren: () =>
+          import('../signup/patient-onboard/patient-onboard.module').then(
+            (m) => m.PatientOnboardPageModule
+          ),
+      },
+    ],
   },
   {
     path: 'login',
     loadChildren: () =>
       import('../login/login/login.module').then((m) => m.LoginPageModule),
   },
+
   {
     path: '',
-    redirectTo: '/login',
+    redirectTo: '/patient',
     pathMatch: 'full',
   },
 ];

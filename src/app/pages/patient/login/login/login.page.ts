@@ -1,6 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { LoginPayload, LoginResponse } from '../../shared-resources/types/type';
+import { LoginService } from '../../shared-resources/services/login/login.service';
+import { Observable } from 'rxjs';
+import { ModalController } from '@ionic/angular';
+import { SignupPage } from '../../signup/signup/signup.page';
 
 @Component({
   selector: 'app-login',
@@ -9,8 +14,18 @@ import { Router } from '@angular/router';
 })
 export class LoginPage implements OnInit {
   loginForm!: FormGroup;
+  loading: boolean = false;
+  responseData!: LoginResponse;
+  formSubmited: boolean = false;
+  signupModal!: HTMLIonModalElement;
 
-  constructor(private formBuilder: FormBuilder, private router: Router) {}
+  constructor(
+    private formBuilder: FormBuilder,
+    private _router: Router,
+    private route: ActivatedRoute,
+    private loginService: LoginService,
+    public modalController: ModalController
+  ) {}
 
   ngOnInit() {
     this.initForm();
@@ -18,25 +33,70 @@ export class LoginPage implements OnInit {
 
   initForm() {
     this.loginForm = this.formBuilder.group({
-      email: ['', [Validators.required, Validators.email]],
+      email: [
+        '',
+        [
+          Validators.required,
+          Validators.email,
+          Validators.pattern('[^@]*@[^@]*'),
+        ],
+      ],
       password: ['', [Validators.required, Validators.minLength(6)]],
       remember: [false],
     });
   }
 
   login() {
-    if (this.loginForm.valid) {
-      // Here, you can add your authentication logic.
-      // For this example, let's simulate a successful login for demonstration purposes.
-      if (
-        this.loginForm.value.email === 'user@example.com' &&
-        this.loginForm.value.password === 'password'
-      ) {
-        // Redirect to another page after successful login.
-        this.router.navigateByUrl('/patient');
-      } else {
-        console.log('Invalid credentials');
+    this.formSubmited = true;
+    const loginFormData = this.loginForm.value;
+    const loginPayload: LoginPayload = {
+      email: loginFormData.email,
+      password: loginFormData.password,
+    };
+    console.log(loginPayload);
+    this.loading = true;
+    this.loginService.logIn(loginPayload).subscribe(
+      (response: any) => {
+        this.loading = false;
+        this.responseData = response;
+        localStorage.setItem(
+          'currentUser',
+          JSON.stringify(this.responseData.user)
+        );
+        localStorage.setItem(
+          'currentToken',
+          JSON.stringify(this.responseData.token)
+        );
+        const returnUrl =
+          this.route.snapshot.queryParams['returnUrl'] || '/patient';
+        this._router.navigateByUrl(returnUrl);
+        // this._router.navigate(['/patient']);
+        if (this.signupModal) {
+          this.signupModal.dismiss();
+        }
+        this.closeModal();
+      },
+      (error) => {
+        this.loading = false;
+        console.log(error);
       }
-    }
+    );
+  }
+
+  public loghasError = (controlName: string, errorName: string) => {
+    // this.loading = false;
+    return this.loginForm.controls[controlName].hasError(errorName);
+  };
+
+  closeModal() {
+    this.modalController.dismiss();
+  }
+
+  async openSignUPModal() {
+    // this.closeModal();
+    this.signupModal = await this.modalController.create({
+      component: SignupPage,
+    });
+    return await this.signupModal.present();
   }
 }

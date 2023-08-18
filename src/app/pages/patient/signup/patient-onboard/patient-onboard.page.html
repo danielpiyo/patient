@@ -1,0 +1,68 @@
+<ion-content [fullscreen]="true">
+  <div class="header-bck"> <br>
+    <ion-toolbar>
+      <ion-title></ion-title>
+    </ion-toolbar>
+    <div class="logo-1">
+      <ion-img class="logo-img" src="../../../../assets/icon/logo.png"></ion-img>
+      <p class="slogan">Affordable, Accesible Healthcare</p>
+    </div>
+  </div>
+
+  <ion-card class="ion-no-margin hm-01">
+    <br><br>
+    <ion-card-header>
+      <ion-card-title>
+        <h1 class="welcome-heading">Let's set Up your account</h1>
+      </ion-card-title>
+    </ion-card-header>
+
+
+    <div class="card-container">
+      <form [formGroup]="patientFormGroup" (ngSubmit)="onBoardPatient()">
+        <ion-list>
+          <!-- Name -->
+          <ion-item>
+            <ion-input type="text" formControlName="name" label="Full Name"></ion-input>
+          </ion-item>
+          <!-- Contact -->
+          <ion-item>
+            <ion-input type="text" formControlName="mobile" label="Contact Number"></ion-input>
+          </ion-item>
+          <!-- Email -->
+          <ion-item>
+            <ion-input formControlName="email" label="Email" type="email"></ion-input>
+          </ion-item>
+          <!-- Address -->
+          <ion-item>
+            <ion-input formControlName="address" label="Address"></ion-input>
+          </ion-item>
+          <!-- location -->
+          <ion-item>
+            <ion-select formControlName="location_id">
+              <ion-select-option *ngFor="let location of(locationsList | async); let i = index" [value]="location.id">
+                {{location.name}}
+              </ion-select-option>
+            </ion-select>
+          </ion-item>
+          <!-- Password -->
+          <ion-item>
+            <ion-input formControlName="password" label="Password" type="password"></ion-input>
+          </ion-item>
+          <!-- Confirm Password -->
+          <ion-item>
+            <ion-input formControlName="confirmPassword" label="Confirm Password" type="password"></ion-input>
+          </ion-item>
+
+        </ion-list>
+        <br>
+
+        <br>
+
+        <ion-button shape="round" color="success" type="submit" [disabled]="patientFormGroup.invalid"
+          class="login-button">SUBMIT</ion-button>
+      </form>
+    </div>
+  </ion-card>
+
+</ion-content>
