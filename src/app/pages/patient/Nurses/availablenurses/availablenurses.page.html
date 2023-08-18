@@ -1,7 +1,7 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="/patient/service"></ion-back-button>
+      <ion-back-button defaultHref="patient/service"></ion-back-button>
     </ion-buttons>
     <ion-title></ion-title>
   </ion-toolbar>
@@ -9,7 +9,7 @@
 
 <ion-content [fullscreen]="true">
   <div class="header-bck">
-
+    <div class="ion-img-lg"><ion-img src="../../../../../assets/icon/logo2.png"></ion-img></div>
     <hr>
   </div> <br>
   <div>
@@ -17,16 +17,16 @@
     <ion-card class="ion-no-margin">
       <ion-card-content>
         <ion-row>
-          <ion-col size="8">
-            <ion-searchbar show-clear-button="always" value="Search ..." class="custom"></ion-searchbar>
+          <ion-col size="10">
+            <ion-searchbar show-clear-button="focus" (keyup)="applyFilter($event)" class="custom"></ion-searchbar>
           </ion-col>
-          <ion-col size="4">
+          <ion-col size="2">
 
-            <ion-select label="Select category" label-placement="fixed">
+            <!-- <ion-select label="Select category" label-placement="fixed">
               <ion-select-option value="apple">Apple</ion-select-option>
               <ion-select-option value="banana">Banana</ion-select-option>
               <ion-select-option value="orange">Orange</ion-select-option>
-            </ion-select>
+            </ion-select> -->
           </ion-col>
         </ion-row>
       </ion-card-content>
@@ -35,7 +35,7 @@
       <h3>AVAILABLE NURSES</h3>
     </div>
     <ion-card class="ion-no-margin hm-01">
-      <div *ngFor="let nurse of(nursesLists | async); let i = index">
+      <div *ngFor="let nurse of filteredNurses; let i = index">
         <ion-card [routerLink]="['nurse', nurse.id]" button>
           <ion-card-content>
             <ion-row>

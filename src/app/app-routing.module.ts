@@ -9,6 +9,20 @@ const routes: Routes = [
         (m) => m.PatientPageModule
       ),
   },
+  {
+    path: 'nurses-speciality',
+    loadChildren: () =>
+      import(
+        './pages/patient/Nurses/nurses-speciality/nurses-speciality.module'
+      ).then((m) => m.NursesSpecialityPageModule),
+  },
+  {
+    path: 'clinical-speciality',
+    loadChildren: () =>
+      import(
+        './pages/patient/Clinicians/clinical-speciality/clinical-speciality.module'
+      ).then((m) => m.ClinicalSpecialityPageModule),
+  },
 ];
 @NgModule({
   imports: [

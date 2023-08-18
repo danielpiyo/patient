@@ -28,7 +28,4 @@ export class ServiceDetailPage implements OnInit {
   }
 
   ngOnInit() {}
-
-  openModal() {}
-  share() {}
 }

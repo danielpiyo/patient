@@ -20,46 +20,47 @@
   <ion-card>
     <!-- Home visit, medical emergiencies, Medical conciege -->
     <div *ngIf="(serviceDetail | async)?.tag === 'mhv' || (serviceDetail | async)?.tag === 'mcc'">
-      <ion-list lines="none">
-        <ion-item>
-          <ion-label>
-            <ion-icon name="medkit"></ion-icon>
-            Nurse Available
-          </ion-label>
-          <ion-chip color="danger"> {{ (serviceDetail | async)?.nurse_count}}</ion-chip>
-          <ion-button color="success" [routerLink]="['nurses']">Reach Out
-            <!-- <ion-icon name="arrow-round-forward"></ion-icon> -->
-          </ion-button>
-        </ion-item>
+      <ion-accordion-group>
+        <ion-accordion value="first">
 
-        <ion-item>
-          <ion-label>
-            <ion-icon name="thermometer"></ion-icon>
-            Clinical Officers Available
-          </ion-label>
-          <ion-chip color="danger">{{ (serviceDetail | async)?.clinician_count}}</ion-chip>
-          <ion-button color="success" [routerLink]="['clinicians']">Reach Out
-          </ion-button>
-        </ion-item>
+          <ion-item slot="header" color="success">
+            <ion-label>
+              <ion-icon name="medkit"></ion-icon>
+              Our Nurses Specialities
+            </ion-label>
+            <ion-chip color="danger"> {{ (serviceDetail | async)?.nurse_count}}</ion-chip>
+            <!-- <ion-button color="primary"> VIEW</ion-button> -->
+            <ion-button color="primary" [routerLink]="['nurses']">REACH OUT
+              <!-- <ion-icon name="arrow-round-forward"></ion-icon> -->
+            </ion-button>
+          </ion-item>
 
-      </ion-list>
+          <div class="ion-padding" slot="content">
+
+            <!-- Nurses speciality list -->
+
+          </div>
+        </ion-accordion>
+        <hr />
+        <ion-accordion value="second">
+          <ion-item slot="header" color="success">
+            <ion-label>
+              <ion-icon name="thermometer"></ion-icon>
+              Our C.Officers Specialities
+            </ion-label>
+            <ion-chip color="danger">{{ (serviceDetail | async)?.clinician_count}}</ion-chip>
+            <!-- <ion-button color="primary"> VIEW</ion-button> -->
+            <ion-button color="primary" [routerLink]="['clinicians']">REACH OUT </ion-button>
+          </ion-item>
+
+          <div class="ion-padding" slot="content">
+
+          </div>
+        </ion-accordion>
+      </ion-accordion-group>
     </div>
     <!-- Medical -->
     <!-- Consultation nurse not allowed -->
-    <div *ngIf="(serviceDetail | async)?.tag === 'mc'">
-      <ion-list lines="none">
-        <ion-item>
-          <ion-label>
-            <ion-icon name="thermometer"></ion-icon>
-            Clinical Officers Available
-          </ion-label>
-          <ion-chip color="danger">{{ (serviceDetail | async)?.clinician_count}}</ion-chip>
-          <ion-button color="success" [routerLink]="['clinicians']">Reach Out
-          </ion-button>
-        </ion-item>
-
-      </ion-list>
-    </div>
 
     <!-- Request ambulance & emergiency services -->
     <div *ngIf="(serviceDetail | async)?.tag === 'mea'">
@@ -72,7 +73,7 @@
           <ion-chip color="danger"> {{ (serviceDetail | async)?.nurse_count}}</ion-chip>
         </ion-item>
 
-        <ion-button color="success" class="ion-text-center"> Request Service
+        <ion-button color="success" class="ion-text-center"> REQUEST SERVICE
           <ion-icon name="arrow-forward"></ion-icon>
         </ion-button>
 
@@ -80,7 +81,7 @@
     </div>
 
   </ion-card>
-  <ion-fab vertical="top" horizontal="end" slot="fixed">
+  <!-- <ion-fab vertical="top" horizontal="end" slot="fixed">
     <ion-fab-button color="primary">
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>
@@ -94,5 +95,5 @@
         <ion-icon color="dark" name="share"></ion-icon>
       </ion-fab-button>
     </ion-fab-list>
-  </ion-fab>
+  </ion-fab> -->
 </ion-content>
