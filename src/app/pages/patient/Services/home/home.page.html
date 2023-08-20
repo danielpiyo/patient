@@ -17,62 +17,12 @@
     </ion-card-header>
 
     <div *ngIf="!serviceList">
-      <div class="card-container">
-        <div class="card">
-          <ion-card>
-            <ion-card-header>
-              <ion-card-title>
-                <ion-skeleton-text class="skeleton-image" animated></ion-skeleton-text>
-              </ion-card-title>
-              <ion-skeleton-text animated></ion-skeleton-text>
-              <ion-skeleton-text animated></ion-skeleton-text>
-            </ion-card-header>
-          </ion-card>
-        </div>
-
-        <div class="card">
-          <ion-card>
-            <ion-card-header>
-              <ion-card-title>
-                <ion-skeleton-text class="skeleton-image" animated></ion-skeleton-text>
-              </ion-card-title>
-              <ion-skeleton-text animated></ion-skeleton-text>
-              <ion-skeleton-text animated></ion-skeleton-text>
-            </ion-card-header>
-          </ion-card>
-        </div>
-
-        <div class="card">
-          <ion-card>
-            <ion-card-header>
-              <ion-card-title>
-                <ion-skeleton-text class="skeleton-image" animated></ion-skeleton-text>
-              </ion-card-title>
-              <ion-skeleton-text animated></ion-skeleton-text>
-              <ion-skeleton-text animated></ion-skeleton-text>
-            </ion-card-header>
-          </ion-card>
-        </div>
-
-        <div class="card">
-          <ion-card>
-            <ion-card-header>
-              <ion-card-title>
-                <ion-skeleton-text class="skeleton-image" animated></ion-skeleton-text>
-              </ion-card-title>
-              <ion-skeleton-text animated></ion-skeleton-text>
-              <ion-skeleton-text animated></ion-skeleton-text>
-            </ion-card-header>
-          </ion-card>
-        </div>
-      </div>
+      <app-skeleton></app-skeleton>
     </div>
-
     <div class="card-container">
-
       <!-- First Row of Cards -->
       <div class="card" *ngFor="let service of(serviceList | async); let i = index">
-        <ion-card [routerLink]="['service', service.id]" button class="ion-no-margin">
+        <ion-card button class="ion-no-margin" (click)=" goToServiceDetail(service.id)">
           <ion-img [src]="service.image_url"></ion-img>
           <ion-card-header>
             <ion-card-title class="svs-title">
@@ -84,12 +34,12 @@
 
     </div>
     <!-- Action butons -->
-    <div class="action-buttons">
-      <ion-button color="success">
+    <div *ngIf="serviceList" class="action-buttons">
+      <ion-button color="success" (click)="openLoginModal()">
         <ion-icon name="arrow-forward"></ion-icon>
         Sign In
       </ion-button>
-      <ion-button color="success">
+      <ion-button color="success" (click)="openSignUPModal()">
         Sign Up
         <ion-icon name="arrow-forward"></ion-icon>
       </ion-button>

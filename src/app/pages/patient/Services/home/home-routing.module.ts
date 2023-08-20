@@ -7,6 +7,10 @@ const routes: Routes = [
     path: '',
     component: HomePage,
   },
+  {
+    path: 'skeleton',
+    loadChildren: () => import('../../Services/home/skeleton/skeleton.module').then( m => m.SkeletonPageModule)
+  },
 ];
 
 @NgModule({

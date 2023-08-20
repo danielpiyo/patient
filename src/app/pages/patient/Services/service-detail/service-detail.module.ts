@@ -7,14 +7,18 @@ import { IonicModule } from '@ionic/angular';
 import { ServiceDetailPageRoutingModule } from './service-detail-routing.module';
 
 import { ServiceDetailPage } from './service-detail.page';
+import { NursesSpecialityPageModule } from '../../Nurses/nurses-speciality/nurses-speciality.module';
+import { ClinicalSpecialityPageModule } from '../../Clinicians/clinical-speciality/clinical-speciality.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    ServiceDetailPageRoutingModule
+    // NursesSpecialityPageModule,
+    // ClinicalSpecialityPageModule,
+    ServiceDetailPageRoutingModule,
   ],
-  declarations: [ServiceDetailPage]
+  declarations: [ServiceDetailPage],
 })
 export class ServiceDetailPageModule {}
