@@ -24,7 +24,7 @@ export class HomePage {
   ) {
     setTimeout(() => {
       this.serviceList = this.allServices.getAllServices();
-    }, 4000);
+    }, 6000);
   }
 
   goToServiceDetail(serviceId: any) {
