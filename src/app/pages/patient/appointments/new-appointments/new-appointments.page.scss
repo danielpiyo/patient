@@ -1,0 +1,29 @@
+.header-bck {
+  background-color: #39b366;
+  margin-top: 0px;
+  height: 8vh;
+  border-top-left-radius: 9px;
+  border-top-right-radius: 9px;
+}
+
+.ion-img-lg {
+  width: 80px;
+  height: auto;
+  margin: 5px auto;
+}
+
+ion-item {
+  border: #39b366 1px solid;
+  border-radius: 6px;
+}
+.card-footer {
+  // position: absolute;
+  bottom: 0;
+  width: 100%;
+}
+.action-buttons {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  background-color: white;
+}

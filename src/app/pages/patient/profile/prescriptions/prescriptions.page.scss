@@ -1,0 +1,32 @@
+.header-bck {
+    background-color: #39b366;
+    margin-top: 0px;
+    min-height: 8vh;
+    max-height: auto;
+    border-top-left-radius: 9px;
+    border-top-right-radius: 9px;
+    //   margin-bottom: -10px;
+  }
+  
+  .table-header {
+    border-bottom: groove;
+    background-color: #8fbda0;
+    height: 3vh;
+    margin-top: 20px;
+  }
+  
+  .welcome-heading {
+      text-align: center;
+      margin-top: 10px;
+      font-weight:700;
+      font-size: larger;
+    }
+    .welcome-details {
+      text-align: center;
+      font-size: 12px;
+    }  
+    ion-toolbar {
+      border-top-left-radius: 12px;
+      border-top-right-radius: 12px;
+      --background:: #39b366;
+    }

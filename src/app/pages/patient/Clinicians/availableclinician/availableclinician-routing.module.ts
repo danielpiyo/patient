@@ -6,8 +6,15 @@ import { AvailableclinicianPage } from './availableclinician.page';
 const routes: Routes = [
   {
     path: '',
-    component: AvailableclinicianPage
-  }
+    component: AvailableclinicianPage,
+  },
+  {
+    path: 'clinician/:clinicianId',
+    loadChildren: () =>
+      import('../../Clinicians/clinician-detail/clinician-detail.module').then(
+        (m) => m.ClinicianDetailPageModule
+      ),
+  },
 ];
 
 @NgModule({

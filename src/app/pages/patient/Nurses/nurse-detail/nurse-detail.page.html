@@ -1,12 +1,64 @@
+<!-- Header -->
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-back-button defaultHref="/patient/service"></ion-back-button>
-    </ion-buttons>
-    <ion-title></ion-title>
+    <div class="header-bck">
+      <ion-buttons slot="start">
+        <ion-back-button defaultHref="/patient/service"></ion-back-button>
+      </ion-buttons>
+    </div>
   </ion-toolbar>
 </ion-header>
 
+<!-- content -->
 <ion-content [fullscreen]="true">
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>
+        <div *ngIf="(nurseDetails | async)?.sex === 'M'">
+          <ion-avatar class="profile-pic">
+            <ion-img src="../../../../assets/images/clinician.png"></ion-img>
+          </ion-avatar>
+
+        </div>
+        <!-- female -->
+        <div *ngIf="(nurseDetails | async)?.sex !== 'M'">
+          <ion-avatar class="profile-pic">
+            <ion-img src="../../../../assets/images/nurse.png"></ion-img>
+          </ion-avatar>
+        </div>
+      </ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-list>
+        <ion-item>
+          <ion-label>Name</ion-label>
+          <ion-label>{{ (nurseDetails | async)?.name }}</ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label>Speciality</ion-label>
+          <ion-label>{{ (nurseDetails | async)?.speciality }}</ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label>Availability</ion-label>
+          <ion-label>
+            <ion-chip color="success">Available
+              <ion-icon name="alarm" color="danger"></ion-icon>
+            </ion-chip>
+          </ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label>Charges</ion-label>
+          <ion-label>
+            <ion-chip color="danger">Ksh 400 /=</ion-chip>
+          </ion-label>
+        </ion-item>
+      </ion-list>
+      <ion-button outline class="ion-float-right" color="success"
+        [routerLink]="['appointment', (nurseDetails | async)?.id]">
+        <ion-icon name="paper-plane"></ion-icon> ..
+        Book Appointment ..
+      </ion-button>
+    </ion-card-content>
+  </ion-card>
 
 </ion-content>

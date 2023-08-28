@@ -10,68 +10,8 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        children: [
-          {
-            path: '',
-            loadChildren: () =>
-              import('../Services/home/home.module').then(
-                (m) => m.HomePageModule
-              ),
-          },
-          {
-            path: 'service/:serviceId',
-            canActivate: [AuthGuard],
-            children: [
-              {
-                path: '',
-                loadChildren: () =>
-                  import(
-                    '../Services/service-detail/service-detail.module'
-                  ).then((m) => m.ServiceDetailPageModule),
-              },
-              {
-                path: 'nurses',
-                canActivate: [AuthGuard],
-                children: [
-                  {
-                    path: '',
-                    loadChildren: () =>
-                      import(
-                        '../Nurses/availablenurses/availablenurses.module'
-                      ).then((m) => m.AvailablenursesPageModule),
-                  },
-                  {
-                    path: 'nurse/:nurseId',
-                    loadChildren: () =>
-                      import('../Nurses/nurse-detail/nurse-detail.module').then(
-                        (m) => m.NurseDetailPageModule
-                      ),
-                  },
-                ],
-              },
-              {
-                path: 'clinicians',
-                canActivate: [AuthGuard],
-                children: [
-                  {
-                    path: '',
-                    loadChildren: () =>
-                      import(
-                        '../Clinicians/availableclinician/availableclinician.module'
-                      ).then((m) => m.AvailableclinicianPageModule),
-                  },
-                  {
-                    path: 'clinician/:clinicianId',
-                    loadChildren: () =>
-                      import(
-                        '../Clinicians/clinician-detail/clinician-detail.module'
-                      ).then((m) => m.ClinicianDetailPageModule),
-                  },
-                ],
-              },
-            ],
-          },
-        ],
+        loadChildren: () =>
+          import('../Services/home/home.module').then((m) => m.HomePageModule),
       },
       {
         path: 'reports',
@@ -86,6 +26,20 @@ const routes: Routes = [
         canActivate: [AuthGuard],
         loadChildren: () =>
           import('../profile/profile.module').then((m) => m.ProfilePageModule),
+      },
+      {
+        path: 'appointments',
+        loadChildren: () =>
+          import(
+            '../appointments/past-appointments/past-appointments.module'
+          ).then((m) => m.PastAppointmentsPageModule),
+      },
+      {
+        path: 'pastpayment',
+        loadChildren: () =>
+          import('../payment/pastpayment/pastpayment.module').then(
+            (m) => m.PastpaymentPageModule
+          ),
       },
       {
         path: '',

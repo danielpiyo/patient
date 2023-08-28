@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Mclservices } from '../../shared-resources/types/type';
+import { Mclservices, User } from '../../shared-resources/types/type';
 import { ModalController, NavController, NavParams } from '@ionic/angular';
 import { MclinicservicesService } from '../../shared-resources/services/mclinic-service/mclinicservices.service';
 import { Router } from '@angular/router';
@@ -15,6 +15,7 @@ import { SignupPage } from '../../signup/signup/signup.page';
 })
 export class HomePage {
   serviceList!: Observable<Mclservices[]>;
+  currentUser: User;
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -22,6 +23,7 @@ export class HomePage {
     private allServices: MclinicservicesService,
     public modalContoller: ModalController
   ) {
+    this.currentUser = JSON.parse(localStorage.getItem('currentUser') || '{}');
     setTimeout(() => {
       this.serviceList = this.allServices.getAllServices();
     }, 6000);
