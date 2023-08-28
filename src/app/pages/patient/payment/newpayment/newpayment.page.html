@@ -13,23 +13,32 @@
     <ion-card-content>
       <hr>
       <ion-list>
-        <ion-item>Service: </ion-item>
+        <ion-item>Service: {{ data.service_name }}</ion-item>
         <ion-item>Specialist:</ion-item>
         <ion-item>Location:</ion-item>
-        <ion-item>Appointment Time:</ion-item>
-        <ion-item>Amount:</ion-item>
+        <ion-item>Appointment Time: {{ data.booking_date | date: 'dd/MM/yyyy hh:mm a' }}</ion-item>
+        <ion-item>Amount: Ksh380/=</ion-item>
       </ion-list>
       <hr>
-      <capacitor-google-map #map> </capacitor-google-map>
-      <ion-row>
-        <ion-col size="4">
-          <ion-img src="../../../../../assets/images/mpesa.png"></ion-img>
-        </ion-col>
-        <ion-col size="4"></ion-col>
-      </ion-row>
+      <!-- <capacitor-google-map #map> </capacitor-google-map> -->
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title>Select Payment Method</ion-card-title>
+        </ion-card-header>
+        <ion-row>
+          <ion-col size="4">
+            <ion-img src="../../../../../assets/images/mpesa.png"></ion-img>
+          </ion-col>
+          <ion-col size="4">
+
+          </ion-col>
+          <ion-col size="4">
+            <ion-img src="../../../../../assets/images/visa.png"></ion-img>
+          </ion-col>
+        </ion-row>
+      </ion-card>
     </ion-card-content>
   </ion-card>
-  <p>Doctor ID: {{ data.doctor_id }}</p>
   <ion-button color="success" shape="round" class="custom-button">
     Next
   </ion-button>
