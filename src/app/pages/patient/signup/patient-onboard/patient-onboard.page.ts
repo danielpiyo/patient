@@ -94,7 +94,7 @@ export class PatientOnboardPage implements OnInit {
   async presentSuccessAlert() {
     const alert = await this.alertController.create({
       header: 'Success',
-      message: 'Successfully Signed Up!',
+      message: 'Data update succesfully!',
       buttons: ['OK'],
     });
 
