@@ -34,7 +34,7 @@
 
     </div>
     <!-- Action butons -->
-    <div *ngIf="serviceList" class="action-buttons">
+    <div *ngIf="serviceList && loggedIn !=='Yes'" class="action-buttons">
       <ion-button color="success" (click)="openLoginModal()">
         <ion-icon name="arrow-forward"></ion-icon>
         Sign In

@@ -1,0 +1,55 @@
+<ion-header [translucent]="true">
+  <div class="header-bck">
+  </div>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+  <ion-card class="custom-card">
+
+    <ion-card-header>
+      <ion-card-title class="pay-header"> Payment Details</ion-card-title>
+    </ion-card-header>
+    <hr>
+    <ion-card-content>
+      <hr>
+      <ion-list>
+        <ion-item>Service: {{ data.service_name }}</ion-item>
+        <ion-item>Specialist:</ion-item>
+        <ion-item>Location:</ion-item>
+        <ion-item>Appointment Time: {{ data.booking_date | date: 'dd/MM/yyyy hh:mm a' }}</ion-item>
+        <ion-item>Amount: Ksh380/=</ion-item>
+      </ion-list>
+      <hr>
+      <!-- <capacitor-google-map #map> </capacitor-google-map> -->
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title>Select Payment Method</ion-card-title>
+        </ion-card-header>
+        <ion-row>
+          <ion-col size="4">
+            <ion-img src="../../../../../assets/images/mpesa.png"></ion-img>
+          </ion-col>
+          <ion-col size="4">
+
+          </ion-col>
+          <ion-col size="4">
+            <ion-img src="../../../../../assets/images/visa.png"></ion-img>
+          </ion-col>
+        </ion-row>
+      </ion-card>
+    </ion-card-content>
+  </ion-card>
+  <ion-button color="success" shape="round" class="custom-button">
+    Next
+  </ion-button>
+
+  <ion-fab vertical="bottom" horizontal="center" slot="fixed">
+    <ion-fab-button (click)="closeModel()" color="danger">
+      <ion-icon name="close"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+  <!-- <div class="container">
+
+    <capacitor-google-map #map> </capacitor-google-map>
+  </div> -->
+</ion-content>

@@ -117,3 +117,35 @@ export interface Locations {
   id: number;
   name: string;
 }
+
+export interface Appointment {
+  service_id: number;
+  service_name: string;
+  doctor_id: number;
+  site: string;
+  location: string;
+  mobile: string;
+  appointment_for: string;
+  chronic_yn: string;
+  age: number;
+  disease: string;
+  booking_date: Date;
+  time_serial: string;
+  payment_status: string;
+  trx_code: string;
+  is_complete: boolean;
+}
+
+export interface BookedAppointments {
+  appointment_id: number;
+  service_id: number;
+  service_name: string;
+  doctor_id: number;
+  doctor_name: string;
+  appointment_for: string;
+  disease: string;
+  booking_date: Date;
+  time_serial: string;
+  payment_status: string;
+  is_complete: boolean;
+}

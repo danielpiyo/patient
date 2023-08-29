@@ -12,6 +12,7 @@ export class LoginService {
   private userLoggedIn = new Subject<boolean>();
   private inactivityTimeout: number = 300000; // 5 minutes in milliseconds
   private timer: any;
+  private isAuthenticated = false;
 
   constructor(private _http: HttpClient, private router: Router) {
     this.userLoggedIn.next(false);
@@ -26,6 +27,7 @@ export class LoginService {
   }
 
   logIn(logiPaylod: LoginPayload): Observable<LoginPayload> {
+    this.isAuthenticated = true;
     return this._http.post<LoginPayload>(
       `${environment.baseURL}/signin`,
       logiPaylod
@@ -40,11 +42,17 @@ export class LoginService {
   }
 
   logout() {
+    this.isAuthenticated = false;
     localStorage.removeItem('currentToken');
     localStorage.removeItem('currentUser');
+    localStorage.removeItem('LoggedIn');
     window.history.pushState({}, '', '');
     this.setUserLoggedIn(false);
     localStorage.clear();
     this.router.navigate(['']);
+  }
+
+  isAuthenticatedUser(): boolean {
+    return this.isAuthenticated;
   }
 }

@@ -13,7 +13,7 @@
     <br><br>
     <ion-card-header>
       <ion-card-title>
-        <h1 class="welcome-heading">Let's set Up your account</h1>
+        <h1 class="welcome-heading">Seting Up Your account ..</h1>
       </ion-card-title>
     </ion-card-header>
 
@@ -23,22 +23,33 @@
         <ion-list>
           <!-- Name -->
           <ion-item>
-            <ion-input type="text" formControlName="name" label="Full Name"></ion-input>
+            <ion-label position="floating">Full Name</ion-label>
+            <ion-input type="text" formControlName="name"></ion-input>
           </ion-item>
           <!-- Contact -->
           <ion-item>
-            <ion-input type="text" formControlName="mobile" label="Contact Number"></ion-input>
+            <ion-label position="floating">Contact Number</ion-label>
+            <ion-input type="text" formControlName="mobile"></ion-input>
           </ion-item>
           <!-- Email -->
           <ion-item>
-            <ion-input formControlName="email" label="Email" type="email"></ion-input>
+            <ion-label position="floating">Email</ion-label>
+            <ion-input formControlName="email" type="email" id="email"></ion-input>
           </ion-item>
+          <!-- ION hoover -->
+          <ion-popover trigger="email" triggerAction="hover">
+            <ng-template>
+              <ion-content class="ion-padding">Use the same email you registered with</ion-content>
+            </ng-template>
+          </ion-popover>
           <!-- Address -->
           <ion-item>
-            <ion-input formControlName="address" label="Address"></ion-input>
+            <ion-label position="floating">Address</ion-label>
+            <ion-input formControlName="address"></ion-input>
           </ion-item>
           <!-- location -->
           <ion-item>
+            <ion-label position="floating">Select Location</ion-label>
             <ion-select formControlName="location_id">
               <ion-select-option *ngFor="let location of(locationsList | async); let i = index" [value]="location.id">
                 {{location.name}}
@@ -47,11 +58,13 @@
           </ion-item>
           <!-- Password -->
           <ion-item>
-            <ion-input formControlName="password" label="Password" type="password"></ion-input>
+            <!-- <ion-label position="floating">Password</ion-label> -->
+            <ion-input formControlName="password" type="password" label="Password"></ion-input>
           </ion-item>
           <!-- Confirm Password -->
           <ion-item>
-            <ion-input formControlName="confirmPassword" label="Confirm Password" type="password"></ion-input>
+            <!-- <ion-label position="floating">Confirm Password</ion-label> -->
+            <ion-input formControlName="confirmPassword" type="password" label="Confirm Password"></ion-input>
           </ion-item>
 
         </ion-list>

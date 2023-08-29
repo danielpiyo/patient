@@ -16,6 +16,9 @@ export class ProfilePage {
 
   logOut() {
     this._logOutServive.logout();
+    window.location.reload();
     this._router.navigate(['/patient']);
   }
+
+  editProfile() {}
 }

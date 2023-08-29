@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { PatientPage } from './patient.page';
 import { AuthGuard } from '../shared-resources/guards/auth/auth.guard';
+import { ControllerGuard } from '../shared-resources/guards/controller/controller.guard';
 
 const routes: Routes = [
   {
@@ -10,68 +11,8 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        children: [
-          {
-            path: '',
-            loadChildren: () =>
-              import('../Services/home/home.module').then(
-                (m) => m.HomePageModule
-              ),
-          },
-          {
-            path: 'service/:serviceId',
-            canActivate: [AuthGuard],
-            children: [
-              {
-                path: '',
-                loadChildren: () =>
-                  import(
-                    '../Services/service-detail/service-detail.module'
-                  ).then((m) => m.ServiceDetailPageModule),
-              },
-              {
-                path: 'nurses',
-                canActivate: [AuthGuard],
-                children: [
-                  {
-                    path: '',
-                    loadChildren: () =>
-                      import(
-                        '../Nurses/availablenurses/availablenurses.module'
-                      ).then((m) => m.AvailablenursesPageModule),
-                  },
-                  {
-                    path: 'nurse/:nurseId',
-                    loadChildren: () =>
-                      import('../Nurses/nurse-detail/nurse-detail.module').then(
-                        (m) => m.NurseDetailPageModule
-                      ),
-                  },
-                ],
-              },
-              {
-                path: 'clinicians',
-                canActivate: [AuthGuard],
-                children: [
-                  {
-                    path: '',
-                    loadChildren: () =>
-                      import(
-                        '../Clinicians/availableclinician/availableclinician.module'
-                      ).then((m) => m.AvailableclinicianPageModule),
-                  },
-                  {
-                    path: 'clinician/:clinicianId',
-                    loadChildren: () =>
-                      import(
-                        '../Clinicians/clinician-detail/clinician-detail.module'
-                      ).then((m) => m.ClinicianDetailPageModule),
-                  },
-                ],
-              },
-            ],
-          },
-        ],
+        loadChildren: () =>
+          import('../Services/home/home.module').then((m) => m.HomePageModule),
       },
       {
         path: 'reports',
@@ -88,6 +29,20 @@ const routes: Routes = [
           import('../profile/profile.module').then((m) => m.ProfilePageModule),
       },
       {
+        path: 'appointments',
+        loadChildren: () =>
+          import(
+            '../appointments/past-appointments/past-appointments.module'
+          ).then((m) => m.PastAppointmentsPageModule),
+      },
+      {
+        path: 'pastpayment',
+        loadChildren: () =>
+          import('../payment/pastpayment/pastpayment.module').then(
+            (m) => m.PastpaymentPageModule
+          ),
+      },
+      {
         path: '',
         redirectTo: '',
         pathMatch: 'full',
@@ -99,6 +54,7 @@ const routes: Routes = [
     children: [
       {
         path: '',
+        canActivate: [ControllerGuard],
         loadChildren: () =>
           import('../signup/signup/signup.module').then(
             (m) => m.SignupPageModule
@@ -115,6 +71,7 @@ const routes: Routes = [
   },
   {
     path: 'login',
+    canActivate: [ControllerGuard],
     loadChildren: () =>
       import('../login/login/login.module').then((m) => m.LoginPageModule),
   },

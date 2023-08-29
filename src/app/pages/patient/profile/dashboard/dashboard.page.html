@@ -1,0 +1,45 @@
+<ion-content [fullscreen]="true">
+  <div class="header-bck">
+    <ion-toolbar>
+      <ion-title></ion-title>
+    </ion-toolbar>
+    <div class="logo-1">
+      <ion-img class="logo-img" src="../../../../assets/icon/logo.png"></ion-img>
+      <p class="slogan">Affordable, Accesible Healthcare</p>
+    </div>
+  </div>
+
+  <ion-card class="ion-no-margin hm-01">
+    <ion-card-header>
+      <ion-card-title>
+        <h1 class="welcome-heading">Dashboard</h1>
+        <h3 class="welcome-details">
+          <ion-chip color="danger">
+            <!-- All in one place for you {{ currentUser.name }}  -->
+            One stop solution for your medical needs
+            <!-- {{ currentUser.name }} -->
+          </ion-chip>
+        </h3>
+      </ion-card-title>
+    </ion-card-header>
+
+    <div *ngIf="!serviceList">
+      <app-skeleton></app-skeleton>
+    </div>
+    <div class="card-container">
+      <!-- First Row of Cards -->
+      <div class="card" *ngFor="let service of(serviceList | async); let i = index">
+        <ion-card button class="ion-no-margin" (click)=" goToServiceDetail(service.id)">
+          <ion-img [src]="service.image_url"></ion-img>
+          <ion-card-header>
+            <ion-card-title class="svs-title">
+              <p>{{ service.name }}</p>
+            </ion-card-title>
+          </ion-card-header>
+        </ion-card>
+      </div>
+
+    </div>
+  </ion-card>
+
+</ion-content>

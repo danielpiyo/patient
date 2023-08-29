@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Mclservices } from '../../shared-resources/types/type';
+import { Mclservices, User } from '../../shared-resources/types/type';
 import { ModalController, NavController, NavParams } from '@ionic/angular';
 import { MclinicservicesService } from '../../shared-resources/services/mclinic-service/mclinicservices.service';
 import { Router } from '@angular/router';
 import { LoginPage } from '../../login/login/login.page';
 import { SignupPage } from '../../signup/signup/signup.page';
+import { LoginService } from '../../shared-resources/services/login/login.service';
 
 @Component({
   selector: 'app-tab1',
@@ -15,16 +16,26 @@ import { SignupPage } from '../../signup/signup/signup.page';
 })
 export class HomePage {
   serviceList!: Observable<Mclservices[]>;
+  currentUser: User;
+
+  loggedIn: any;
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
     private router: Router,
     private allServices: MclinicservicesService,
+    private authService: LoginService,
     public modalContoller: ModalController
   ) {
+    this.currentUser = JSON.parse(localStorage.getItem('currentUser') || '{}');
     setTimeout(() => {
       this.serviceList = this.allServices.getAllServices();
-    }, 4000);
+      console.log('ServicenLogs', this.serviceList);
+    }, 6000);
+
+    setInterval(() => {
+      this.loggedIn = localStorage.getItem('LoggedIn');
+    }, 5000);
   }
 
   goToServiceDetail(serviceId: any) {

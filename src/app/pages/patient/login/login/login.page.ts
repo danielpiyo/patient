@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { LoginPayload, LoginResponse } from '../../shared-resources/types/type';
 import { LoginService } from '../../shared-resources/services/login/login.service';
 import { Observable } from 'rxjs';
-import { ModalController } from '@ionic/angular';
+import { AlertController, ModalController } from '@ionic/angular';
 import { SignupPage } from '../../signup/signup/signup.page';
 
 @Component({
@@ -25,7 +25,8 @@ export class LoginPage implements OnInit {
     private _router: Router,
     private route: ActivatedRoute,
     private loginService: LoginService,
-    public modalController: ModalController
+    public modalController: ModalController,
+    private alertController: AlertController
   ) {}
 
   ngOnInit() {
@@ -58,7 +59,7 @@ export class LoginPage implements OnInit {
     this.loading = true;
     this.loginService.logIn(loginPayload).subscribe(
       (response: any) => {
-        this.loading = false;
+        this.presentSuccessAlert();
         this.responseData = response;
         localStorage.setItem(
           'currentUser',
@@ -68,6 +69,7 @@ export class LoginPage implements OnInit {
           'currentToken',
           JSON.stringify(this.responseData.token)
         );
+        localStorage.setItem('LoggedIn', 'Yes');
         const returnUrl =
           this.route.snapshot.queryParams['returnUrl'] || '/patient';
         this._router.navigateByUrl(returnUrl);
@@ -78,7 +80,7 @@ export class LoginPage implements OnInit {
         this.closeModal();
       },
       (error) => {
-        this.loading = false;
+        this.presentErrorAlert(error.error);
         console.log(error);
       }
     );
@@ -89,29 +91,42 @@ export class LoginPage implements OnInit {
     return this.loginForm.controls[controlName].hasError(errorName);
   };
 
-  // closeModal() {
-  //   this.modalController.dismiss();
-  // }
-  closeModal() {
-    // this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/patient';
-    this.modalController
-      .dismiss()
-      .then(() => {
-        setTimeout(() => {
-          this._router.navigate(['/patient']); // Navigate to the returnUrl after dismissing the modal
-        }, 100); // Adjust the delay as needed
-      })
-      .catch((error) => {
-        // Handle error if the modal cannot be dismissed
-        console.error('Error dismissing modal:', error);
-      });
+  async closeModal() {
+    const openModal = await this.modalController.getTop(); // Get the top-most open modal
+
+    if (openModal) {
+      this.modalController.dismiss();
+    } else {
+      this._router.navigate(['/patient']);
+    }
+  }
+  async presentSuccessAlert() {
+    const alert = await this.alertController.create({
+      header: 'Success',
+      message: 'successfully Logged In!',
+      buttons: ['OK'],
+    });
+
+    await alert.present();
+  }
+
+  async presentErrorAlert(error: Error) {
+    const alert = await this.alertController.create({
+      header: 'Error',
+      message: `${error.message}`,
+      buttons: ['OK'],
+    });
+
+    await alert.present();
   }
 
   async openSignUPModal() {
-    // this.closeModal();
-    this.signupModal = await this.modalController.create({
-      component: SignupPage,
-    });
-    return await this.signupModal.present();
+    const openModal = await this.modalController.getTop(); // Get the top-most open modal
+    if (openModal) {
+      this.modalController.dismiss();
+      this._router.navigate(['/signup']);
+    } else {
+      this._router.navigate(['/signup']);
+    }
   }
 }

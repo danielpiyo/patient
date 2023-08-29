@@ -1,39 +1,33 @@
 <ion-header [translucent]="true">
+  <!-- Header -->
   <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-back-button defaultHref="patient/service"></ion-back-button>
-    </ion-buttons>
-    <ion-title></ion-title>
+    <div class="header-bck">
+      <ion-buttons slot="start">
+        <ion-back-button defaultHref="patient/service"></ion-back-button>
+      </ion-buttons>
+      <hr>
+    </div>
   </ion-toolbar>
-</ion-header>
-
-<ion-content [fullscreen]="true">
-  <div class="header-bck">
-    <div class="ion-img-lg"><ion-img src="../../../../../assets/icon/logo2.png"></ion-img></div>
-    <hr>
-  </div> <br>
-  <div>
-
-    <ion-card class="ion-no-margin">
-      <ion-card-content>
-        <ion-row>
-          <ion-col size="10">
-            <ion-searchbar show-clear-button="focus" (keyup)="applyFilter($event)" class="custom"></ion-searchbar>
-          </ion-col>
-          <ion-col size="2">
-
-            <!-- <ion-select label="Select category" label-placement="fixed">
-              <ion-select-option value="apple">Apple</ion-select-option>
-              <ion-select-option value="banana">Banana</ion-select-option>
-              <ion-select-option value="orange">Orange</ion-select-option>
-            </ion-select> -->
-          </ion-col>
-        </ion-row>
-      </ion-card-content>
-    </ion-card>
+  <ion-card class="ion-no-margin">
+    <ion-card-content>
+      <ion-row>
+        <ion-col size="10">
+          <ion-searchbar show-clear-button="focus" (keyup)="applyFilter($event)" class="custom"></ion-searchbar>
+        </ion-col>
+        <ion-col size="2">
+        </ion-col>
+      </ion-row>
+    </ion-card-content>
     <div class="specialist-cat">
       <h3>AVAILABLE NURSES</h3>
     </div>
+  </ion-card>
+</ion-header>
+
+<!-- Content -->
+<ion-content [fullscreen]="true">
+  <br>
+  <div>
     <ion-card class="ion-no-margin hm-01">
       <div *ngFor="let nurse of filteredNurses; let i = index">
         <ion-card [routerLink]="['nurse', nurse.id]" button>
@@ -57,18 +51,14 @@
               </ion-col>
               <ion-col size="4">
                 <!-- Second Column with Chip -->
-                <p>Dr.{{ nurse.name }}</p>
+                <p>{{ nurse.name }}</p>
                 <h5>{{ nurse.speciality }}</h5>
-                <ion-chip color="success">
-                  <ion-icon name="alarm" color="danger"></ion-icon>
-                  <ion-label>11 am</ion-label>
-                </ion-chip>
+                <ion-chip color="success">{{ nurse.address }}</ion-chip>
               </ion-col>
               <ion-col size="4">
                 <!-- Third Column with Button -->
                 <ion-button shape="round" fill="outline" color="danger">
-                  <ion-icon slot="start" name="alarm"></ion-icon>
-                  Book</ion-button>
+                  View </ion-button>
               </ion-col>
             </ion-row>
           </ion-card-content>

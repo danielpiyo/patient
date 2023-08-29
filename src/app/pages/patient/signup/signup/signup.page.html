@@ -1,5 +1,8 @@
 <ion-content [fullscreen]="true">
-  <div class="header-bck"> <br>
+  <div class="header-bck">
+    <ion-buttons slot="start">
+      <!-- <ion-back-button defaultHref="/patient"></ion-back-button> -->
+    </ion-buttons>
     <ion-toolbar>
       <ion-title></ion-title>
     </ion-toolbar>
@@ -13,7 +16,7 @@
     <br><br>
     <ion-card-header>
       <ion-card-title>
-        <h1 class="welcome-heading">SIGN UP HERE</h1>
+        <h1 class="welcome-heading">SIGN UP</h1>
       </ion-card-title>
     </ion-card-header>
 
@@ -27,6 +30,7 @@
         </ion-list>
         <br>
 
+        <br>
         <br>
 
         <ion-button shape="round" color="success" type="submit" [disabled]="signUpForm.invalid"
