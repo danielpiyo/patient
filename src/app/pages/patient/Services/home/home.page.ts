@@ -26,6 +26,7 @@ export class HomePage {
     this.currentUser = JSON.parse(localStorage.getItem('currentUser') || '{}');
     setTimeout(() => {
       this.serviceList = this.allServices.getAllServices();
+      console.log('ServicenLogs', this.serviceList);
     }, 6000);
   }
 

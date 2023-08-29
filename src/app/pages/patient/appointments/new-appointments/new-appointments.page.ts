@@ -47,6 +47,7 @@ export class NewAppointmentsPage implements OnInit {
   }
 
   ngOnInit() {
+    this.printCurrentPosition;
     this.getAllServices();
     this.formInit();
   }
@@ -70,7 +71,9 @@ export class NewAppointmentsPage implements OnInit {
   // get services
   getAllServices() {
     this.allServices = this._allServices.getAllServices();
-    this.printCurrentPosition;
+     this.printCurrentPosition().catch((error) => {
+      console.error('Error getting current position:', error);
+    });
   }
 
   // make payment

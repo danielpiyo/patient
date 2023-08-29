@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { PatientPage } from './patient.page';
 import { AuthGuard } from '../shared-resources/guards/auth/auth.guard';
+import { ControllerGuard } from '../shared-resources/guards/controller/controller.guard';
 
 const routes: Routes = [
   {
@@ -53,6 +54,7 @@ const routes: Routes = [
     children: [
       {
         path: '',
+        canActivate: [ControllerGuard],
         loadChildren: () =>
           import('../signup/signup/signup.module').then(
             (m) => m.SignupPageModule
@@ -69,6 +71,7 @@ const routes: Routes = [
   },
   {
     path: 'login',
+    canActivate: [ControllerGuard],
     loadChildren: () =>
       import('../login/login/login.module').then((m) => m.LoginPageModule),
   },

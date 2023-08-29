@@ -3,7 +3,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { SignupService } from '../../shared-resources/services/signup/signup.service';
 import { SignupPayload } from '../../shared-resources/types/type';
-import { ModalController } from '@ionic/angular';
+import { AlertController, ModalController } from '@ionic/angular';
 import { LoginPage } from '../../login/login/login.page';
 
 @Component({
@@ -18,7 +18,8 @@ export class SignupPage implements OnInit {
     private formBuilder: FormBuilder,
     private router: Router,
     private _signUpService: SignupService,
-    public modalController: ModalController
+    public modalController: ModalController,
+    private alertController: AlertController
   ) {}
 
   ngOnInit() {
@@ -38,12 +39,14 @@ export class SignupPage implements OnInit {
       };
       this._signUpService.signUp(signUpPayload).subscribe(
         (res) => {
+          this.presentSuccessAlert();
           console.log(res);
           this.router.navigate(['/signup/onboard']);
           this.closeModal();
         },
         (error) => {
-          console.log(error);
+          console.log(error.error);
+          this.presentErrorAlert(error);
         }
       );
     }
@@ -53,11 +56,33 @@ export class SignupPage implements OnInit {
     this.modalController.dismiss();
   }
 
-  async openLoginModal() {
-    // this.closeModal();
-    const modalInstance = await this.modalController.create({
-      component: LoginPage,
+  async presentSuccessAlert() {
+    const alert = await this.alertController.create({
+      header: 'Success',
+      message: 'Successfully Signed Up!',
+      buttons: ['OK'],
     });
-    return await modalInstance.present();
+
+    await alert.present();
   }
+
+  async presentErrorAlert(error: Error) {
+    const alert = await this.alertController.create({
+      header: 'Error',
+      message: `Error: ${error.message}`,
+      buttons: ['OK'],
+    });
+
+    await alert.present();
+  }
+  // async openLoginModal() {
+  //   // this.closeModal();
+  //   const modalInstance = await this.modalController.create({
+  //     component: LoginPage,
+  //   });
+  //   return await modalInstance.present();
+  // }
+  // openLoginModal() {
+  //   this.router.navigate(['/login']);
+  // }
 }

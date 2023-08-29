@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { LoginPayload, LoginResponse } from '../../shared-resources/types/type';
 import { LoginService } from '../../shared-resources/services/login/login.service';
 import { Observable } from 'rxjs';
-import { ModalController } from '@ionic/angular';
+import { AlertController, ModalController } from '@ionic/angular';
 import { SignupPage } from '../../signup/signup/signup.page';
 
 @Component({
@@ -25,7 +25,8 @@ export class LoginPage implements OnInit {
     private _router: Router,
     private route: ActivatedRoute,
     private loginService: LoginService,
-    public modalController: ModalController
+    public modalController: ModalController,
+    private alertController: AlertController
   ) {}
 
   ngOnInit() {
@@ -58,7 +59,7 @@ export class LoginPage implements OnInit {
     this.loading = true;
     this.loginService.logIn(loginPayload).subscribe(
       (response: any) => {
-        this.loading = false;
+        this.presentSuccessAlert();
         this.responseData = response;
         localStorage.setItem(
           'currentUser',
@@ -78,7 +79,7 @@ export class LoginPage implements OnInit {
         this.closeModal();
       },
       (error) => {
-        this.loading = false;
+        this.presentErrorAlert(error.error);
         console.log(error);
       }
     );
@@ -107,11 +108,35 @@ export class LoginPage implements OnInit {
       });
   }
 
-  async openSignUPModal() {
-    // this.closeModal();
-    this.signupModal = await this.modalController.create({
-      component: SignupPage,
+  async presentSuccessAlert() {
+    const alert = await this.alertController.create({
+      header: 'Success',
+      message: 'successfully Logged In!',
+      buttons: ['OK'],
     });
-    return await this.signupModal.present();
+
+    await alert.present();
   }
+
+  async presentErrorAlert(error: Error) {
+    const alert = await this.alertController.create({
+      header: 'Error',
+      message: `${error.message}`,
+      buttons: ['OK'],
+    });
+
+    await alert.present();
+  }
+
+  // async openSignUPModal() {
+  //   // this.closeModal();
+  //   this.signupModal = await this.modalController.create({
+  //     component: SignupPage,
+  //   });
+  //   return await this.signupModal.present();
+  // }
+
+  // openSignUPModal() {
+  //   this._router.navigate(['/signup']);
+  // }
 }
