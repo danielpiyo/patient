@@ -1,5 +1,8 @@
 <ion-content [fullscreen]="true">
-  <div class="header-bck"> <br>
+  <div class="header-bck">
+    <ion-buttons slot="start">
+      <!-- <ion-back-button defaultHref="/patient"></ion-back-button> -->
+    </ion-buttons>
     <ion-toolbar>
       <ion-title></ion-title>
     </ion-toolbar>
@@ -34,7 +37,7 @@
           class="login-button">NEXT</ion-button>
       </form>
       <br>
-      <!-- <div class="signin-cls"><ion-label>Already Member? <a (click)="openLoginModal()">Sign In</a></ion-label></div> -->
+      <div class="signin-cls"><ion-label>Already Member? <a (click)="openLoginModal()">Sign In</a></ion-label></div>
 
     </div>
   </ion-card>

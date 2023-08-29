@@ -4,7 +4,6 @@ import { Router } from '@angular/router';
 import { SignupService } from '../../shared-resources/services/signup/signup.service';
 import { SignupPayload } from '../../shared-resources/types/type';
 import { AlertController, ModalController } from '@ionic/angular';
-import { LoginPage } from '../../login/login/login.page';
 
 @Component({
   selector: 'app-signup',
@@ -52,8 +51,16 @@ export class SignupPage implements OnInit {
     }
   }
 
-  closeModal() {
-    this.modalController.dismiss();
+  async closeModal() {
+    const openModal = await this.modalController.getTop(); // Get the top-most open modal
+
+    if (openModal) {
+      this.modalController.dismiss();
+    } else {
+      this.router.navigate(['/patient']);
+      // Do something else when there is no open modal
+      console.log('No open modal found. Doing something else...');
+    }
   }
 
   async presentSuccessAlert() {
@@ -75,14 +82,14 @@ export class SignupPage implements OnInit {
 
     await alert.present();
   }
-  // async openLoginModal() {
-  //   // this.closeModal();
-  //   const modalInstance = await this.modalController.create({
-  //     component: LoginPage,
-  //   });
-  //   return await modalInstance.present();
-  // }
-  // openLoginModal() {
-  //   this.router.navigate(['/login']);
-  // }
+
+  async openLoginModal() {
+    const openModal = await this.modalController.getTop(); // Get the top-most open modal
+    if (openModal) {
+      this.modalController.dismiss();
+      this.router.navigate(['/login']);
+    } else {
+      this.router.navigate(['/login']);
+    }
+  }
 }

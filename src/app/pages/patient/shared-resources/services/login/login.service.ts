@@ -45,6 +45,7 @@ export class LoginService {
     this.isAuthenticated = false;
     localStorage.removeItem('currentToken');
     localStorage.removeItem('currentUser');
+    localStorage.removeItem('LoggedIn');
     window.history.pushState({}, '', '');
     this.setUserLoggedIn(false);
     localStorage.clear();

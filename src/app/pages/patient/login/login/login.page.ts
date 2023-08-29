@@ -69,6 +69,7 @@ export class LoginPage implements OnInit {
           'currentToken',
           JSON.stringify(this.responseData.token)
         );
+        localStorage.setItem('LoggedIn', 'Yes');
         const returnUrl =
           this.route.snapshot.queryParams['returnUrl'] || '/patient';
         this._router.navigateByUrl(returnUrl);
@@ -90,24 +91,15 @@ export class LoginPage implements OnInit {
     return this.loginForm.controls[controlName].hasError(errorName);
   };
 
-  // closeModal() {
-  //   this.modalController.dismiss();
-  // }
-  closeModal() {
-    // this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/patient';
-    this.modalController
-      .dismiss()
-      .then(() => {
-        setTimeout(() => {
-          this._router.navigate(['/patient']); // Navigate to the returnUrl after dismissing the modal
-        }, 100); // Adjust the delay as needed
-      })
-      .catch((error) => {
-        // Handle error if the modal cannot be dismissed
-        console.error('Error dismissing modal:', error);
-      });
-  }
+  async closeModal() {
+    const openModal = await this.modalController.getTop(); // Get the top-most open modal
 
+    if (openModal) {
+      this.modalController.dismiss();
+    } else {
+      this._router.navigate(['/patient']);
+    }
+  }
   async presentSuccessAlert() {
     const alert = await this.alertController.create({
       header: 'Success',
@@ -128,15 +120,13 @@ export class LoginPage implements OnInit {
     await alert.present();
   }
 
-  // async openSignUPModal() {
-  //   // this.closeModal();
-  //   this.signupModal = await this.modalController.create({
-  //     component: SignupPage,
-  //   });
-  //   return await this.signupModal.present();
-  // }
-
-  // openSignUPModal() {
-  //   this._router.navigate(['/signup']);
-  // }
+  async openSignUPModal() {
+    const openModal = await this.modalController.getTop(); // Get the top-most open modal
+    if (openModal) {
+      this.modalController.dismiss();
+      this._router.navigate(['/signup']);
+    } else {
+      this._router.navigate(['/signup']);
+    }
+  }
 }
